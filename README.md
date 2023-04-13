@@ -13,7 +13,7 @@ get the key
 
 ### get an openai account
 sign up to: https://platform.openai.com/  
-it's a paied service, not the same thing as chatGPT plus account
+it's a paid service, not the same thing as chatGPT plus account
 ### .env file
 create an .env file in the root with following content:
 ```
