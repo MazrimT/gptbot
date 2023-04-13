@@ -2,6 +2,7 @@
  
 discord bot that takes prompts from user, asks chatgpt and replies the anwser to the user  
 currently gpt-4 is not available (or at least I don't have it) through API so it's set to gpt-3.5-turbo
+This was just a funny evening project, just for inspiration, probably won't do much more on it.
 
 ## install
 
