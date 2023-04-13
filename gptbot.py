@@ -8,9 +8,8 @@ logger = Logger()
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 # Configure the ChatGPT API client
-openai.api_key = OPENAI_API_KEY
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # intents 
 intents = discord.Intents.default()
