@@ -9,7 +9,6 @@ logger = Logger()
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-
 # Configure the ChatGPT API client
 openai.api_key = OPENAI_API_KEY
 
@@ -23,6 +22,7 @@ client = discord.Client(intents=intents)
 async def on_ready():
     logger.info(f'{client.user} has connected to Discord!')
 
+
 @client.event
 async def on_message(message):
     # don't react to own messages
@@ -32,14 +32,14 @@ async def on_message(message):
     #if message.content.startswith('hello'):
     logger.info(f"{message.channel} - {message.author}: {message.content}")
 
-
     if message.content.startswith('!chatgpt'):
         prompt = message.content[9:].strip()
 
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",#"text-davinci-003",
             messages=[
-                {"role": "assistant", "content": prompt}
+                {"role": "system", "content": "you are a 1700's pirate"},
+                {"role": "user", "content": prompt}
             ],
             max_tokens=150,
             #temperature=0.5,
