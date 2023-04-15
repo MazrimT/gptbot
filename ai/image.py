@@ -28,6 +28,7 @@ class imageBot(object):
         ts = datetime.now().strftime('%Y%m%d%H%M%S')
 
         img_path = Path(f"{self.image_path}/{ts}_{user}_{file_name}.png").resolve()
+        
         with open(img_path, 'wb') as f:
             f.write(r.content)
 
@@ -42,6 +43,19 @@ class imageBot(object):
             time_to_wait = 0
 
         return time_to_wait
+
+    def delete_old(self, user):
+        images = self.image_path.glob(f"*_{user}_*.png")
+        if images:
+            latest = max([int(i.stem[:14]) for i in images])
+            to_delete = [x for x in images if not x.name.startswith(str(latest))]       
+
+            print(to_delete)
+            for d in to_delete:
+                print(d)
+                d.unlink(missing_ok=True)    
+        
+
 
 
 if __name__ == '__main__':
