@@ -35,8 +35,12 @@ class imageBot(object):
 
     def get_wait_time(self, user):
         images = self.image_path.glob(f"*_{user}_*.png")
-        latest = max([int(i.stem[:14]) for i in images])
-        time_to_wait = latest + self.wait_time - int(datetime.now().strftime('%Y%m%d%H%M%S'))
+        if images:
+            latest = max([int(i.stem[:14]) for i in images])
+            time_to_wait = latest + self.wait_time - int(datetime.now().strftime('%Y%m%d%H%M%S'))            
+        else:
+            time_to_wait = 0
+
         return time_to_wait
 
 
