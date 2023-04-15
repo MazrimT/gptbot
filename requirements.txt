@@ -1,12 +1,20 @@
+aiohttp==3.8.4
+aiosignal==1.3.1
+async-timeout==4.0.2
+attrs==22.2.0
 certifi==2021.10.8
 charset-normalizer==2.0.12
 colorama==0.4.4
 decorator==4.4.2
+discord==2.2.2
+discord.py==2.2.2
+frozenlist==1.3.3
 idna==3.3
 imageio==2.19.2
 imageio-ffmpeg==0.4.7
 instaloader==4.9
 moviepy==1.0.3
+multidict==6.0.4
 numpy==1.22.4
 Pillow==9.1.1
 proglog==0.1.10
@@ -14,3 +22,4 @@ PyYAML==6.0
 requests==2.27.1
 tqdm==4.64.0
 urllib3==1.26.9
+yarl==1.8.2
