@@ -48,11 +48,18 @@ async def on_message(message):
         logger.info(f"{message.channel} - {message.author}: {message.content}")
         prompt = message.content[9:].strip()
 
-        anwser = chat_bot.get_response(prompt=prompt, user=user)
+        try:
+            anwser = chat_bot.get_response(prompt=prompt, user=user)
 
-        logger.info(f'chatGPT model:{anwser["model"]}, total_tokens: {anwser["tokens"]}, reply: "{anwser["reply"]}", finish_reason: {anwser["finish_reason"]}')
+            logger.info(f'chatGPT model:{anwser["model"]}, total_tokens: {anwser["tokens"]}, reply: "{anwser["reply"]}", finish_reason: {anwser["finish_reason"]}')
 
-        await message.reply(anwser['reply'])
+        except Exception as e:
+            logger.error(f"Could not get an anwser from GPT")
+            logger.error(e)
+            raise
+
+        #await message.reply(anwser['reply'])
+        await channel.send(anwser['reply'])
 
 
     ## making an image

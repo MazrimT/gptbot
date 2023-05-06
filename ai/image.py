@@ -24,7 +24,13 @@ class imageBot(object):
 
         url = response["data"][0]["url"]
         r = requests.get(url, allow_redirects=True)
-        file_name = prompt.replace(' ', '_')[:230].lower()
+
+        bad_chars = [" ", "'", '"', '.', ',', ';', ':', '+', '-']
+
+        file_name = prompt
+        for bad in bad_chars:
+            file_name = file_name.replace(bad, '_')
+        file_name = file_name[:50].lower()
         ts = datetime.now().strftime('%Y%m%d%H%M%S')
 
         img_path = Path(f"{self.image_path}/{ts}_{user}_{file_name}.png").resolve()
@@ -64,5 +70,5 @@ if __name__ == '__main__':
     load_dotenv()
     api_key = os.getenv('OPENAI_API_KEY')
     image_bot = imageBot(api_key=api_key)
-    image = image_bot.get_image(prompt='lalala', user='mazrim')
+    image = image_bot.get_image(prompt='Finnish IT Guy', user='mazrim')
     print(image)

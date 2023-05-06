@@ -2,7 +2,7 @@ import openai
 
 class chatBot(object):
     
-    def __init__(self, api_key, system_prompt="you are a 1700's pirate"):
+    def __init__(self, api_key, system_prompt="a helpful discord bot"):
 
         self.system_prompt = system_prompt
         self.api_key = api_key
@@ -12,8 +12,9 @@ class chatBot(object):
         openai.api_key = self.api_key
         system = system_prompt if system_prompt else self.system_prompt
 
+
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": system},
                 {"role": "user", "content": prompt}
@@ -34,6 +35,8 @@ class chatBot(object):
         }
 
         return answer
+    
+
 
 
 if __name__ == '__main__':
