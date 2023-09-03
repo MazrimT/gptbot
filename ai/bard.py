@@ -4,7 +4,7 @@ def get_session_id():
     """Gets a session ID from Google Bard."""
     url = "https://bard.google.com/v1/session"
     headers = {
-    "Authorization": "Bearer 345e641062c0555224c739215e2f5464c67cdcbd",
+    "Authorization": "Bearer xxxxxxxxxx",
     }
     data = {}
 
