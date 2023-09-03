@@ -10,7 +10,7 @@ class imageBot(object):
         self.openai = openai
         self.openai.api_key = api_key
         self.image_path = Path(__file__).parent.parent.joinpath("images").resolve()
-        self.wait_time = 30
+        self.wait_time = 5
 
 
     def get_image(self, prompt, user, size=1024):
@@ -42,8 +42,10 @@ class imageBot(object):
 
     def get_wait_time(self, user):
         images = self.image_path.glob(f"*_{user}_*.png")
-        if images:
-            latest = max([int(i.stem[:14]) for i in images])
+        images_list = list(images)
+
+        if len(images_list) > 0:
+            latest = max([int(i.stem[:14]) for i in images_list])
             time_to_wait = latest + self.wait_time - int(datetime.now().strftime('%Y%m%d%H%M%S'))            
         else:
             time_to_wait = 0
@@ -52,13 +54,13 @@ class imageBot(object):
 
     def delete_old(self, user):
         images = self.image_path.glob(f"*_{user}_*.png")
-        if images:
-            latest = max([int(i.stem[:14]) for i in images])
-            to_delete = [x for x in images if not x.name.startswith(str(latest))]       
+        images_list = list(images)
 
-            print(to_delete)
+        if len(images_list) > 0:
+            latest = max([int(i.stem[:14]) for i in images_list])
+            to_delete = [x for x in images_list if not x.name.startswith(str(latest))]       
+
             for d in to_delete:
-                print(d)
                 d.unlink(missing_ok=True)    
         
 
