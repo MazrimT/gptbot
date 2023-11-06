@@ -16,9 +16,11 @@ class imageBot(object):
     def get_image(self, prompt, user, size=1024):
         
         response = self.openai.Image.create(
+            model="dall-e-3",
             prompt=prompt,
             n=1,
-            size=f"{size}x{size}",
+            quality="hd",
+            size='1792x1024',
             user=user,
         )
 

@@ -8,6 +8,7 @@ from ai.gpt import gptBot
 from ai.image import imageBot
 from ai.pollen import pollenBot
 from ai.power import powerBot
+from ai.picture import pictureBot
 from logger.logger import Logger
 
 
@@ -21,6 +22,7 @@ gpt_bot = gptBot(api_key=OPENAI_API_KEY)
 image_bot = imageBot(api_key=OPENAI_API_KEY)
 pollen_bot = pollenBot() 
 power_bot = powerBot()
+picture_bot = pictureBot()
 
 # discord intents 
 intents = discord.Intents.default()
@@ -160,7 +162,7 @@ async def on_message(message: discord.Message):
         await send_anwser(message, answer)        
         
     # get power prognosis
-    elif message.content.startswith('!power'):
+    elif message.content == ('!power'):
         
         thread = await send_anwser(message, "Checking power prognosis, please wait...")
 
@@ -171,7 +173,19 @@ async def on_message(message: discord.Message):
         img_path = f"{Path(__file__).parent.joinpath('images/power')}/power.png"
 
         await thread.send(file=discord.File(img_path))
-            
+        
+    # get power prognosis
+    elif message.content == ('!picture'):
+        
+        thread = await send_anwser(message, "Taking a picture, please wait...")
+
+        logger.info(f"{message.channel} - {message.author}: {message.content}")        
+
+        picture_path = pictureBot.take_picture()
+
+        await thread.send(file=discord.File(picture_path))
+        
+                    
 client.run(DISCORD_TOKEN)
 
 

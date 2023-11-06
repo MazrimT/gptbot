@@ -17,7 +17,8 @@ class gptBot(object):
 
 
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            #model="gpt-4",
+            model="gpt-4-1106-preview",
             messages=[
                 {"role": "system", "content": system},
                 {"role": "system", "content": f"My username is {user}"},
