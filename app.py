@@ -45,9 +45,9 @@ async def send_anwser(message: discord.Message, anwser: str, name:str='reply'):
         reply_to = message.channel
         
     else:
-        thread = await message.create_thread(name=name)
-        await thread.send(anwser)
-        reply_to = thread
+    #    thread = await message.create_thread(name=name)
+        await message.channel.send(anwser)
+        reply_to = message.channel
         
     return reply_to
 
@@ -174,14 +174,14 @@ async def on_message(message: discord.Message):
 
         await thread.send(file=discord.File(img_path))
         
-    # get power prognosis
+    # take a picture
     elif message.content == ('!picture'):
         
         thread = await send_anwser(message, "Taking a picture, please wait...")
 
         logger.info(f"{message.channel} - {message.author}: {message.content}")        
 
-        picture_path = pictureBot.take_picture()
+        picture_path = picture_bot.take_picture()
 
         await thread.send(file=discord.File(picture_path))
         

@@ -15,15 +15,17 @@ class pictureBot(object):
         picture_dir = Path(__file__).parent.parent.joinpath(f'images/picture')
         picture_path = picture_dir.joinpath(f'picture_{t}.png')
         font_path = Path(__file__).parent.parent.joinpath(f'resources/arial.ttf')
-        print(font_path)
+ 
+        print('setting up camera')
         picam2 = Picamera2()
-        
+        print('setup done')
         #picam2.start_and_capture_file(picture_path.as_posix(), delay=1, show_preview=False)
+        
         camera_config = picam2.create_still_configuration()
         picam2.configure(camera_config)
         picam2.start()
         img = picam2.capture_image()
-
+        picam2.close()
 
         # add text
         draw = ImageDraw.Draw(img)
@@ -36,7 +38,7 @@ class pictureBot(object):
         img.save(picture_path.as_posix(), format='PNG')
 
 
-
+        
 
 
 
@@ -48,8 +50,8 @@ class pictureBot(object):
     
 if __name__ == '__main__':
 
-    picture = pictureBot()
+    picture_bot = pictureBot()
     
-    picture_path = picture.take_picture()
+    picture_path = picture_bot.take_picture()
     print(picture_path)
     
