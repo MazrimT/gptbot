@@ -1,5 +1,4 @@
-import openai
-import sqlite3
+from openai import OpenAI
 from pathlib import Path
 
 class gptBot(object):
@@ -12,31 +11,41 @@ class gptBot(object):
         
     def get_response(self, prompt, user, system_prompt=None):
         
-        openai.api_key = self.api_key
+        #openai.api_key = self.api_key
+        client = OpenAI(api_key=self.api_key)
         system = system_prompt if system_prompt else self.system_prompt
 
 
-        response = openai.ChatCompletion.create(
-            #model="gpt-4",
-            model="gpt-4-1106-preview",
+        #response = openai.ChatCompletion.create(
+        #    #model="gpt-4",
+        #    model="gpt-4-1106-preview",
+        #    messages=[
+        #        {"role": "system", "content": system},
+        #        {"role": "system", "content": f"My username is {user}"},
+        #        {"role": "user", "content": prompt}
+        #    ],
+        #    #max_tokens=150,
+        #    user=user,
+        #    temperature=0,
+        #    #top_p=1,
+        #    #frequency_penalty=0,
+        #    #presence_penalty=0
+        #)
+        chat_completion = client.chat.completions.create(
             messages=[
                 {"role": "system", "content": system},
                 {"role": "system", "content": f"My username is {user}"},
                 {"role": "user", "content": prompt}
             ],
-            #max_tokens=150,
-            user=user,
-            temperature=0,
-            #top_p=1,
-            #frequency_penalty=0,
-            #presence_penalty=0
+            model="gpt-4-1106-preview",
         )
+        
 
         answer = {
-            "reply": response['choices'][0]['message']['content'],
-            "finish_reason": response['choices'][0]['finish_reason'],
-            "tokens": response["usage"]["total_tokens"],
-            "model": response["model"]
+            "reply": chat_completion.choices[0].message.content,
+            "finish_reason": chat_completion.choices[0].finish_reason,
+            "tokens": chat_completion.usage.total_tokens,
+            "model": chat_completion.model
         }
 
         return answer

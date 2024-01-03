@@ -1,0 +1,8 @@
+openai
+requests
+pillow
+elasticsearch==7.17.8
+matplotlib
+pytz
+discord
+python-dotenv

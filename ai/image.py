@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import requests
 from pathlib import Path
 from datetime import datetime
@@ -7,15 +7,16 @@ class imageBot(object):
 
     def __init__(self, api_key):
 
-        self.openai = openai
-        self.openai.api_key = api_key
+        self.api_key = api_key
         self.image_path = Path(__file__).parent.parent.joinpath("images").resolve()
         self.wait_time = 5
 
 
     def get_image(self, prompt, user, size=1024):
         
-        response = self.openai.Image.create(
+        client = OpenAI(api_key=api_key)
+        
+        response = client.images.generate(
             model="dall-e-3",
             prompt=prompt,
             n=1,
@@ -24,7 +25,7 @@ class imageBot(object):
             user=user,
         )
 
-        url = response["data"][0]["url"]
+        url = response.data[0].url
         r = requests.get(url, allow_redirects=True)
 
         bad_chars = [" ", "'", '"', '.', ',', ';', ':', '+', '-']
